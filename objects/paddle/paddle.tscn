@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://textures/paddle.png" type="Texture" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[node name="paddle" type="KinematicBody2D" groups=[
+"paddle",
+]]
+
+position = Vector2( 92.4496, 160.25 )
+input_pickable = false
+collision_layer = 8
+collision_mask = 3
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Collision", "Pickable" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="shape" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+
+[node name="status_timer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+

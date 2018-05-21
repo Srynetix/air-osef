@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://textures/board.png" type="Texture" id=1]
+[ext_resource path="res://objects/board/separator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/board/goal.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 8 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 7.32889, 143.062 )
+
+[sub_resource type="SegmentShape2D" id=4]
+
+custom_solver_bias = 0.0
+a = Vector2( 0, 0 )
+b = Vector2( 30, -30 )
+
+[sub_resource type="SegmentShape2D" id=5]
+
+custom_solver_bias = 0.0
+a = Vector2( 0, 0 )
+b = Vector2( 30, 30 )
+
+[node name="board" type="StaticBody2D" index="0" groups=[
+"board",
+]]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 1 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="top_wall_left" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( 31.9128, 7.85079 )
+shape = SubResource( 1 )
+
+[node name="top_wall_right" type="CollisionShape2D" parent="." index="2"]
+
+position = Vector2( 147.972, 8.32644 )
+shape = SubResource( 1 )
+
+[node name="bottom_wall_left" type="CollisionShape2D" parent="." index="3"]
+
+position = Vector2( 31.9889, 311.798 )
+shape = SubResource( 2 )
+
+[node name="bottom_wall_right" type="CollisionShape2D" parent="." index="4"]
+
+position = Vector2( 147.894, 311.798 )
+shape = SubResource( 2 )
+
+[node name="left_wall" type="CollisionShape2D" parent="." index="5"]
+
+position = Vector2( 8.12498, 159.662 )
+shape = SubResource( 3 )
+
+[node name="right_wall" type="CollisionShape2D" parent="." index="6"]
+
+position = Vector2( 172.174, 160.06 )
+shape = SubResource( 3 )
+
+[node name="top_left_wall" type="CollisionShape2D" parent="." index="7"]
+
+position = Vector2( 16.5668, 47.176 )
+shape = SubResource( 4 )
+
+[node name="bottom_right_wall" type="CollisionShape2D" parent="." index="8"]
+
+position = Vector2( 132.949, 303.307 )
+shape = SubResource( 4 )
+
+[node name="top_right_wall" type="CollisionShape2D" parent="." index="9"]
+
+position = Vector2( 132.626, 17.2098 )
+shape = SubResource( 5 )
+
+[node name="bottom_left_wall" type="CollisionShape2D" parent="." index="10"]
+
+position = Vector2( 17.5296, 272.8 )
+shape = SubResource( 5 )
+
+[node name="separator" parent="." index="11" instance=ExtResource( 2 )]
+
+position = Vector2( 89.405, 161.61 )
+
+[node name="top_goal" parent="." index="12" instance=ExtResource( 3 )]
+
+position = Vector2( 89.8046, 8.28749 )
+
+[node name="bottom_goal" parent="." index="13" instance=ExtResource( 3 )]
+
+position = Vector2( 90.0384, 311.66 )
+
+

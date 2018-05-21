@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://screens/arena/arena.gd" type="Script" id=1]
+[ext_resource path="res://objects/board/board.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/paddle/ai_paddle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/paddle/player_paddle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://screens/arena/ui.tscn" type="PackedScene" id=5]
+
+[node name="arena" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+
+[node name="board" parent="." index="0" instance=ExtResource( 2 )]
+
+[node name="pucks" type="Node2D" parent="." index="1"]
+
+[node name="items" type="Node2D" parent="." index="2"]
+
+[node name="ai" parent="." index="3" instance=ExtResource( 3 )]
+
+position = Vector2( 112.29, 36.3363 )
+rotation = 3.14159
+_sections_unfolded = [ "Collision", "Pickable", "Transform" ]
+
+[node name="player" parent="." index="4" instance=ExtResource( 4 )]
+
+position = Vector2( 90.8319, 288.37 )
+
+[node name="ui" parent="." index="5" instance=ExtResource( 5 )]
+
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 180.0
+margin_bottom = 320.0
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="respawn_timer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="game_timer" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="item_spawn_timer" type="Timer" parent="." index="8"]
+
+process_mode = 1
+wait_time = 10.0
+one_shot = false
+autostart = false
+
+[node name="game_over_timer" type="Timer" parent="." index="9"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = false
+
+
