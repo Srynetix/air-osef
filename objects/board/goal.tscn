@@ -6,9 +6,9 @@
 
 custom_solver_bias = 0.0
 a = Vector2( -25, 0 )
-b = Vector2( 25, 0 )
+b = Vector2( 63.65, 0.147617 )
 
-[node name="goal" type="StaticBody2D" index="0" groups=[
+[node name="goal" type="StaticBody2D" groups=[
 "goal",
 ]]
 

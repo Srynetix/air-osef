@@ -6,32 +6,70 @@
 
 [sub_resource type="DynamicFont" id=1]
 
-size = 28
+size = 48
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 3 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="main_menu" type="Node" index="0"]
+[node name="main_menu" type="Node"]
 
 script = ExtResource( 1 )
 
 [node name="background" type="Sprite" parent="." index="0"]
 
+scale = Vector2( 2.00001, 2.00001 )
 texture = ExtResource( 2 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
-[node name="title" type="Label" parent="." index="1"]
+[node name="margin" type="MarginContainer" parent="." index="1"]
 
-anchor_left = 0.5
+anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_constants/margin_right = 40
+custom_constants/margin_top = 20
+custom_constants/margin_left = 40
+custom_constants/margin_bottom = 20
+_sections_unfolded = [ "Anchor", "custom_constants" ]
+
+[node name="vbox" type="VBoxContainer" parent="margin" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -89.5
-margin_top = 45.0
-margin_right = 89.5
-margin_bottom = 55.0
+margin_left = 40.0
+margin_top = 20.0
+margin_right = 320.0
+margin_bottom = 620.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_constants/separation = 100
+alignment = 1
+_sections_unfolded = [ "custom_constants" ]
+
+[node name="title" type="Label" parent="margin/vbox" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 200.0
+margin_right = 280.0
+margin_bottom = 255.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -46,18 +84,33 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Margin" ]
+_sections_unfolded = [ "custom_fonts" ]
 
-[node name="solo" type="Button" parent="." index="2"]
+[node name="buttons" type="VBoxContainer" parent="margin/vbox" index="1"]
 
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -19.0
-margin_top = -37.0
-margin_right = 20.0
-margin_bottom = -17.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 355.0
+margin_right = 280.0
+margin_bottom = 399.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="solo" type="Button" parent="margin/vbox/buttons" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 280.0
+margin_bottom = 20.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -72,18 +125,16 @@ group = null
 text = "Solo"
 flat = false
 align = 1
-_sections_unfolded = [ "Margin" ]
 
-[node name="multi" type="Button" parent="." index="3"]
+[node name="multi" type="Button" parent="margin/vbox/buttons" index="1"]
 
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -40.0
-margin_top = 19.0
-margin_right = 44.0
-margin_bottom = 39.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 24.0
+margin_right = 280.0
+margin_bottom = 44.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2

@@ -2,6 +2,7 @@ extends Node2D
 
 const MAX_SCORE = 4
 const TIMER_LIMIT = 60 # seconds
+const SPAWN_LIMIT_MARGIN = 25
 
 onready var puck_scene = preload("res://objects/puck/puck.tscn")
 
@@ -45,7 +46,7 @@ func _ready():
 
 func _process(delta):
     if Input.is_key_pressed(KEY_SPACE):
-        spawn_puck(Vector2(rand_range(25, SCREEN_WIDTH - 25), rand_range(100, SCREEN_HEIGHT - 100)))
+        spawn_puck(Vector2(rand_range(SPAWN_LIMIT_MARGIN, SCREEN_WIDTH - SPAWN_LIMIT_MARGIN), rand_range(100, SCREEN_HEIGHT - 100)))
 
 func spawn_puck(puck_position):
     var puck_instance = puck_scene.instance()
@@ -118,7 +119,12 @@ func show_game_over():
 
 func _on_item_spawn_timer_timeout():
     if $items.get_child_count() == 0:
-        spawn_item(Vector2(rand_range(10, SCREEN_WIDTH - 10), rand_range(10, SCREEN_HEIGHT - 10)))
+        spawn_item(
+            Vector2(
+                rand_range(SPAWN_LIMIT_MARGIN, SCREEN_WIDTH - SPAWN_LIMIT_MARGIN),
+                rand_range(SPAWN_LIMIT_MARGIN, SCREEN_HEIGHT - SPAWN_LIMIT_MARGIN)
+            )
+        )
 
 func _get_item_target(item):
     if item.target_mode == item.TargetMode.Self:

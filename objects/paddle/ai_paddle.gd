@@ -1,5 +1,7 @@
 extends "res://objects/paddle/paddle.gd"
 
+var AI_MOVE_SPEED = MOVE_SPEED * 3
+
 func _handle_movement():
     # Get pucks
     var min_distance = 99999
@@ -16,4 +18,4 @@ func _handle_movement():
 
     if min_puck:
         current_direction = (min_puck.position - position).normalized()
-        current_move_speed = MOVE_SPEED * 2 * 2
+        current_move_speed = AI_MOVE_SPEED

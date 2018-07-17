@@ -4,7 +4,7 @@
 
 custom_solver_bias = 0.0
 a = Vector2( -90, 0 )
-b = Vector2( 90, 0 )
+b = Vector2( 269.126, 0.0516663 )
 
 [node name="separator" type="StaticBody2D" groups=[
 "separator",

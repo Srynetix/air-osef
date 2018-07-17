@@ -1,9 +1,10 @@
 extends "res://objects/paddle/paddle.gd"
 
-const RUSH_THRESHOLD = 50
+const MOVE_THRESHOLD = 2
 
 var mouse_mode = true
 var mouse_pressed = false
+var mouse_motion_relative = Vector2()
 var mouse_position = Vector2()
 
 func _input(event):
@@ -12,6 +13,9 @@ func _input(event):
             mouse_pressed = true
         if event.button_index == BUTTON_LEFT and not event.pressed:
             mouse_pressed = false
+
+    elif event is InputEventMouseMotion:
+        mouse_motion_relative = event.relative
 
 func _handle_movement():
     if not mouse_mode:
@@ -30,16 +34,13 @@ func _handle_movement():
     else:
         if mouse_pressed:
             mouse_position = get_viewport().get_mouse_position()
-            var distance = mouse_position.distance_to(position)
-
-            if distance > 2:
-                current_direction = (mouse_position - position).normalized()
-                if distance > RUSH_THRESHOLD:
-                    current_move_speed = MOVE_SPEED * 5
-                else:
-                    current_move_speed = MOVE_SPEED * 3
+            var relative_length = mouse_motion_relative.length()
+            if relative_length > MOVE_THRESHOLD:
+                current_direction = mouse_motion_relative.normalized()
+                current_move_speed = MOVE_SPEED * (relative_length / 2)
             else:
                 current_move_speed = 0
 
         else:
+            # Drag
             current_move_speed /= 1.15

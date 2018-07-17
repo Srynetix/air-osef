@@ -7,31 +7,31 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 32, 8 )
+extents = Vector2( 64.3499, 15.4022 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 32, 8 )
+extents = Vector2( 64.3162, 14.7977 )
 
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 7.32889, 143.062 )
+extents = Vector2( 15.7749, 289.376 )
 
 [sub_resource type="SegmentShape2D" id=4]
 
 custom_solver_bias = 0.0
-a = Vector2( 0, 0 )
-b = Vector2( 30, -30 )
+a = Vector2( -11.8888, 2.82904 )
+b = Vector2( 52.3245, -59.7195 )
 
 [sub_resource type="SegmentShape2D" id=5]
 
 custom_solver_bias = 0.0
 a = Vector2( 0, 0 )
-b = Vector2( 30, 30 )
+b = Vector2( 63.8967, 66.1805 )
 
-[node name="board" type="StaticBody2D" index="0" groups=[
+[node name="board" type="StaticBody2D" groups=[
 "board",
 ]]
 
@@ -46,70 +46,73 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="sprite" type="Sprite" parent="." index="0"]
 
+scale = Vector2( 2.00002, 2.00002 )
 texture = ExtResource( 1 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
 [node name="top_wall_left" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( 31.9128, 7.85079 )
+position = Vector2( 64.5871, 15.6536 )
 shape = SubResource( 1 )
 
 [node name="top_wall_right" type="CollisionShape2D" parent="." index="2"]
 
-position = Vector2( 147.972, 8.32644 )
+position = Vector2( 295.25, 15.6416 )
 shape = SubResource( 1 )
 
 [node name="bottom_wall_left" type="CollisionShape2D" parent="." index="3"]
 
-position = Vector2( 31.9889, 311.798 )
+position = Vector2( 65.5182, 625.537 )
 shape = SubResource( 2 )
 
 [node name="bottom_wall_right" type="CollisionShape2D" parent="." index="4"]
 
-position = Vector2( 147.894, 311.798 )
+position = Vector2( 295.499, 623.2 )
 shape = SubResource( 2 )
 
 [node name="left_wall" type="CollisionShape2D" parent="." index="5"]
 
-position = Vector2( 8.12498, 159.662 )
+position = Vector2( 16.1673, 321.547 )
 shape = SubResource( 3 )
 
 [node name="right_wall" type="CollisionShape2D" parent="." index="6"]
 
-position = Vector2( 172.174, 160.06 )
+position = Vector2( 343.982, 321.55 )
 shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="top_left_wall" type="CollisionShape2D" parent="." index="7"]
 
-position = Vector2( 16.5668, 47.176 )
+position = Vector2( 44.852, 93.5052 )
 shape = SubResource( 4 )
 
 [node name="bottom_right_wall" type="CollisionShape2D" parent="." index="8"]
 
-position = Vector2( 132.949, 303.307 )
+position = Vector2( 276.248, 604.5 )
 shape = SubResource( 4 )
 
 [node name="top_right_wall" type="CollisionShape2D" parent="." index="9"]
 
-position = Vector2( 132.626, 17.2098 )
+position = Vector2( 262.835, 31.8401 )
 shape = SubResource( 5 )
 
 [node name="bottom_left_wall" type="CollisionShape2D" parent="." index="10"]
 
-position = Vector2( 17.5296, 272.8 )
+position = Vector2( 31.7722, 542.999 )
 shape = SubResource( 5 )
 
 [node name="separator" parent="." index="11" instance=ExtResource( 2 )]
 
-position = Vector2( 89.405, 161.61 )
+position = Vector2( 88.1803, 321.61 )
 
 [node name="top_goal" parent="." index="12" instance=ExtResource( 3 )]
 
-position = Vector2( 89.8046, 8.28749 )
+position = Vector2( 162.8, 17.457 )
 
 [node name="bottom_goal" parent="." index="13" instance=ExtResource( 3 )]
 
-position = Vector2( 90.0384, 311.66 )
+position = Vector2( 161.737, 623.471 )
+_sections_unfolded = [ "Collision", "Transform" ]
 
 
