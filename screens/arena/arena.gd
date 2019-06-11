@@ -1,5 +1,8 @@
 extends Node2D
 
+#######
+# Arena
+
 const MAX_SCORE = 4
 const TIMER_LIMIT = 60 # seconds
 const SPAWN_LIMIT_MARGIN = 25
@@ -19,6 +22,9 @@ var AVAILABLE_ITEMS = [
     preload("res://objects/items/slow_item.tscn"),
     preload("res://objects/items/multiball_item.tscn")
 ]
+
+###################
+# Lifecycle methods
 
 func _ready():
     randomize()
@@ -48,6 +54,9 @@ func _process(delta):
     if Input.is_key_pressed(KEY_SPACE):
         spawn_puck(Vector2(rand_range(SPAWN_LIMIT_MARGIN, SCREEN_WIDTH - SPAWN_LIMIT_MARGIN), rand_range(100, SCREEN_HEIGHT - 100)))
 
+################
+# Public methods
+        
 func spawn_puck(puck_position):
     var puck_instance = puck_scene.instance()
     puck_instance.position = puck_position
@@ -60,44 +69,6 @@ func spawn_item(item_position):
     item_instance.connect("item_activated", self, "_on_item_activation")
 
     $items.add_child(item_instance)
-
-func _on_top_goal_score():
-    if is_game_over:
-        return
-
-    current_score_p1 += 1
-    _update_scores()
-
-func _on_bottom_goal_score():
-    if is_game_over:
-        return
-
-    current_score_p2 += 1
-    _update_scores()
-
-func _update_scores():
-    $ui.update_score(current_score_p1, current_score_p2)
-
-    if current_score_p1 == MAX_SCORE or current_score_p2 == MAX_SCORE:
-        show_game_over()
-    else:
-        $respawn_timer.start()
-
-func _on_respawn_timer_timeout():
-    if is_game_over:
-        return
-
-    spawn_puck(Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-
-func _on_game_timer_timeout():
-    if is_game_over:
-        return
-
-    current_time += 1
-    $ui.update_time(current_time)
-
-    if current_time == TIMER_LIMIT:
-        show_game_over()
 
 func show_game_over():
     if is_game_over:
@@ -116,6 +87,59 @@ func show_game_over():
 
     $game_over_timer.start()
     is_game_over = true
+    
+#################
+# Private methods
+    
+func _get_item_target(item):
+    if item.target_mode == item.TargetMode.Self:
+        return item.player
+
+    if item.player == $player:
+        return $ai
+
+    return $player
+    
+func _update_scores():
+    $ui.update_score(current_score_p1, current_score_p2)
+
+    if current_score_p1 == MAX_SCORE or current_score_p2 == MAX_SCORE:
+        show_game_over()
+    else:
+        $respawn_timer.start()
+    
+#################
+# Event callbacks
+
+func _on_top_goal_score():
+    if is_game_over:
+        return
+
+    current_score_p1 += 1
+    _update_scores()
+
+func _on_bottom_goal_score():
+    if is_game_over:
+        return
+
+    current_score_p2 += 1
+    _update_scores()
+
+func _on_respawn_timer_timeout():
+    if is_game_over:
+        return
+
+    spawn_puck(Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+
+func _on_game_timer_timeout():
+    if is_game_over:
+        return
+
+    current_time += 1
+    $ui.update_time(current_time)
+
+    if current_time == TIMER_LIMIT:
+        show_game_over()
 
 func _on_item_spawn_timer_timeout():
     if $items.get_child_count() == 0:
@@ -125,15 +149,6 @@ func _on_item_spawn_timer_timeout():
                 rand_range(SPAWN_LIMIT_MARGIN, SCREEN_HEIGHT - SPAWN_LIMIT_MARGIN)
             )
         )
-
-func _get_item_target(item):
-    if item.target_mode == item.TargetMode.Self:
-        return item.player
-
-    if item.player == $player:
-        return $ai
-
-    return $player
 
 func _on_item_activation(type, item):
     if type == "slow":

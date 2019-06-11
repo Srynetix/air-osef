@@ -1,6 +1,12 @@
 extends "res://objects/paddle/paddle.gd"
 
+###########
+# AI Paddle
+
 var AI_MOVE_SPEED = MOVE_SPEED * 3
+
+#################
+# Private methods
 
 func _handle_movement():
     # Get pucks

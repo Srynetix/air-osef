@@ -1,11 +1,17 @@
 extends "res://objects/paddle/paddle.gd"
 
+###############
+# Player Paddle
+
 const MOVE_THRESHOLD = 2
 
 var mouse_mode = true
 var mouse_pressed = false
 var mouse_motion_relative = Vector2()
 var mouse_position = Vector2()
+
+###################
+# Lifecycle methods
 
 func _input(event):
     if event is InputEventMouseButton:
@@ -16,6 +22,9 @@ func _input(event):
 
     elif event is InputEventMouseMotion:
         mouse_motion_relative = event.relative
+        
+#################
+# Private methods
 
 func _handle_movement():
     if not mouse_mode:

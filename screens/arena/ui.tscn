@@ -3,98 +3,52 @@
 [ext_resource path="res://screens/arena/ui.gd" type="Script" id=1]
 [ext_resource path="res://fonts/firafont.tres" type="DynamicFont" id=2]
 
-[node name="ui" type="Control" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="ui" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1.0
 margin_right = -1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Margin" ]
 
-[node name="score" type="Label" parent="." index="0"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -202.0
-margin_top = -331.0
-margin_right = -22.0
-margin_bottom = -251.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_right = -1.0
+
+[node name="score" type="Label" parent="CanvasLayer/MarginContainer"]
+margin_left = 147.0
+margin_top = 300.0
+margin_right = 212.0
+margin_bottom = 339.0
+size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "0 - 0"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Anchor", "Margin", "custom_colors", "custom_fonts" ]
 
-[node name="timer" type="Label" parent="." index="1"]
-
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = 90.0
-margin_top = -44.0
-margin_right = 170.0
-margin_bottom = -5.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
+[node name="timer" type="Label" parent="CanvasLayer/MarginContainer"]
+margin_left = 140.0
+margin_right = 220.0
+margin_bottom = 39.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "00:00"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Anchor", "Margin", "custom_colors", "custom_fonts" ]
 
-[node name="gameover" type="Label" parent="." index="2"]
-
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -56.0
-margin_top = -18.0
-margin_right = 56.0
-margin_bottom = 18.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
+[node name="gameover" type="Label" parent="CanvasLayer/MarginContainer"]
+margin_top = 601.0
+margin_right = 360.0
+margin_bottom = 640.0
+size_flags_vertical = 8
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.046875, 0.046875, 1 )
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "custom_colors", "custom_fonts" ]
-
 
