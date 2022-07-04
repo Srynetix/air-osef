@@ -1,49 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://objects/puck/puck.gd" type="Script" id=1]
 [ext_resource path="res://textures/ballGrey_06.png" type="Texture" id=2]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="PhysicsMaterial" id=2]
+bounce = 0.5
 
-custom_solver_bias = 0.0
+[sub_resource type="CircleShape2D" id=1]
 radius = 13.8815
 
-[node name="puck" type="RigidBody2D" index="0" groups=[
-"puck",
-]]
-
+[node name="puck" type="RigidBody2D" groups=["puck"]]
 position = Vector2( 180, 230 )
-input_pickable = false
 collision_layer = 4
 collision_mask = 29
-mode = 0
 mass = 0.5
-friction = 1.0
-bounce = 0.5
+physics_material_override = SubResource( 2 )
 gravity_scale = 0.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 1
+contacts_reported = 2
 contact_monitor = true
-sleeping = false
-can_sleep = true
-linear_velocity = Vector2( 0, 0 )
-linear_damp = -1.0
-angular_velocity = 0.0
-angular_damp = -1.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Angular", "Applied Forces", "Collision" ]
 
-[node name="sprite" type="Sprite" parent="." index="0"]
-
+[node name="sprite" type="Sprite" parent="."]
 position = Vector2( -1.19913, -2.78831 )
 scale = Vector2( 0.186836, 0.19225 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="shape" type="CollisionShape2D" parent="." index="1"]
-
+[node name="shape" type="CollisionShape2D" parent="."]
 position = Vector2( -0.713486, -2.85393 )
 shape = SubResource( 1 )
-
-

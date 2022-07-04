@@ -1,0 +1,21 @@
+name: Push builds
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-web:
+    uses: ./.github/workflows/build-game.yml
+    with:
+      platform: HTML5
+      name: air-osef
+      output_name: index.html
+  build-android-debug:
+    uses: ./.github/workflows/build-game.yml
+    with:
+      platform: Android
+      name: air-osef
+      output_name: AirOsef.apk
+      debug: true

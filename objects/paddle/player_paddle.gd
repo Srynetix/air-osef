@@ -1,19 +1,13 @@
 extends "res://objects/paddle/paddle.gd"
 
-###############
-# Player Paddle
+const MOVE_THRESHOLD := 2
 
-const MOVE_THRESHOLD = 2
+var mouse_mode := true
+var mouse_pressed := false
+var mouse_motion_relative := Vector2()
+var mouse_position := Vector2()
 
-var mouse_mode = true
-var mouse_pressed = false
-var mouse_motion_relative = Vector2()
-var mouse_position = Vector2()
-
-###################
-# Lifecycle methods
-
-func _input(event):
+func _input(event: InputEvent) -> void:
     if event is InputEventMouseButton:
         if event.button_index == BUTTON_LEFT and event.pressed:
             mouse_pressed = true
@@ -23,10 +17,7 @@ func _input(event):
     elif event is InputEventMouseMotion:
         mouse_motion_relative = event.relative
         
-#################
-# Private methods
-
-func _handle_movement():
+func _handle_movement() -> void:
     if not mouse_mode:
         var direction = Vector2()
         if Input.is_action_pressed("ui_left"):
@@ -38,18 +29,18 @@ func _handle_movement():
         if Input.is_action_pressed("ui_down"):
             direction.y += 1
 
-        current_direction = direction
+        _current_direction = direction
 
     else:
         if mouse_pressed:
             mouse_position = get_viewport().get_mouse_position()
             var relative_length = mouse_motion_relative.length()
             if relative_length > MOVE_THRESHOLD:
-                current_direction = mouse_motion_relative.normalized()
-                current_move_speed = MOVE_SPEED * (relative_length / 2)
+                _current_direction = mouse_motion_relative.normalized()
+                _current_move_speed = MOVE_SPEED * (relative_length / 2)
             else:
-                current_move_speed = 0
+                _current_move_speed = 0
 
         else:
             # Drag
-            current_move_speed /= 1.15
+            _current_move_speed /= 1.15

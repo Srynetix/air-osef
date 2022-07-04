@@ -5,114 +5,73 @@
 [ext_resource path="res://objects/board/goal.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
 extents = Vector2( 64.3499, 15.4022 )
 
 [sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
 extents = Vector2( 64.3162, 14.7977 )
 
 [sub_resource type="RectangleShape2D" id=3]
-
-custom_solver_bias = 0.0
 extents = Vector2( 15.7749, 289.376 )
 
 [sub_resource type="SegmentShape2D" id=4]
-
-custom_solver_bias = 0.0
 a = Vector2( -11.8888, 2.82904 )
 b = Vector2( 52.3245, -59.7195 )
 
 [sub_resource type="SegmentShape2D" id=5]
-
-custom_solver_bias = 0.0
-a = Vector2( 0, 0 )
 b = Vector2( 63.8967, 66.1805 )
 
-[node name="board" type="StaticBody2D" groups=[
-"board",
-]]
+[node name="board" type="StaticBody2D" groups=["board"]]
 
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-_sections_unfolded = [ "Collision" ]
-
-[node name="sprite" type="Sprite" parent="." index="0"]
-
+[node name="sprite" type="Sprite" parent="."]
 scale = Vector2( 2.00002, 2.00002 )
 texture = ExtResource( 1 )
 centered = false
-_sections_unfolded = [ "Offset" ]
 
-[node name="top_wall_left" type="CollisionShape2D" parent="." index="1"]
-
+[node name="top_wall_left" type="CollisionShape2D" parent="."]
 position = Vector2( 64.5871, 15.6536 )
 shape = SubResource( 1 )
 
-[node name="top_wall_right" type="CollisionShape2D" parent="." index="2"]
-
+[node name="top_wall_right" type="CollisionShape2D" parent="."]
 position = Vector2( 295.25, 15.6416 )
 shape = SubResource( 1 )
 
-[node name="bottom_wall_left" type="CollisionShape2D" parent="." index="3"]
-
+[node name="bottom_wall_left" type="CollisionShape2D" parent="."]
 position = Vector2( 65.5182, 625.537 )
 shape = SubResource( 2 )
 
-[node name="bottom_wall_right" type="CollisionShape2D" parent="." index="4"]
-
+[node name="bottom_wall_right" type="CollisionShape2D" parent="."]
 position = Vector2( 295.499, 623.2 )
 shape = SubResource( 2 )
 
-[node name="left_wall" type="CollisionShape2D" parent="." index="5"]
-
+[node name="left_wall" type="CollisionShape2D" parent="."]
 position = Vector2( 16.1673, 321.547 )
 shape = SubResource( 3 )
 
-[node name="right_wall" type="CollisionShape2D" parent="." index="6"]
-
+[node name="right_wall" type="CollisionShape2D" parent="."]
 position = Vector2( 343.982, 321.55 )
 shape = SubResource( 3 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="top_left_wall" type="CollisionShape2D" parent="." index="7"]
-
+[node name="top_left_wall" type="CollisionShape2D" parent="."]
 position = Vector2( 44.852, 93.5052 )
 shape = SubResource( 4 )
 
-[node name="bottom_right_wall" type="CollisionShape2D" parent="." index="8"]
-
+[node name="bottom_right_wall" type="CollisionShape2D" parent="."]
 position = Vector2( 276.248, 604.5 )
 shape = SubResource( 4 )
 
-[node name="top_right_wall" type="CollisionShape2D" parent="." index="9"]
-
+[node name="top_right_wall" type="CollisionShape2D" parent="."]
 position = Vector2( 262.835, 31.8401 )
 shape = SubResource( 5 )
 
-[node name="bottom_left_wall" type="CollisionShape2D" parent="." index="10"]
-
+[node name="bottom_left_wall" type="CollisionShape2D" parent="."]
 position = Vector2( 31.7722, 542.999 )
 shape = SubResource( 5 )
 
-[node name="separator" parent="." index="11" instance=ExtResource( 2 )]
-
+[node name="separator" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88.1803, 321.61 )
 
-[node name="top_goal" parent="." index="12" instance=ExtResource( 3 )]
-
+[node name="top_goal" parent="." instance=ExtResource( 3 )]
 position = Vector2( 162.8, 17.457 )
 
-[node name="bottom_goal" parent="." index="13" instance=ExtResource( 3 )]
-
+[node name="bottom_goal" parent="." instance=ExtResource( 3 )]
 position = Vector2( 161.737, 623.471 )
-_sections_unfolded = [ "Collision", "Transform" ]
-
-

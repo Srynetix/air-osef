@@ -4,34 +4,17 @@
 [ext_resource path="res://textures/slow_item.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-
-custom_solver_bias = 0.0
 radius = 15.0873
 
-[node name="item" type="Area2D" index="0" groups=[
-"item",
-]]
-
+[node name="item" type="Area2D" groups=["item"]]
 position = Vector2( 90, 160 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
 script = ExtResource( 1 )
 
-[node name="sprite" type="Sprite" parent="." index="0"]
-
+[node name="sprite" type="Sprite" parent="."]
 position = Vector2( -0.73322, 0.769249 )
 scale = Vector2( 0.896868, 0.896868 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="shape" type="CollisionShape2D" parent="." index="1"]
-
+[node name="shape" type="CollisionShape2D" parent="."]
 position = Vector2( -0.858551, 0.858566 )
 shape = SubResource( 1 )
-
-

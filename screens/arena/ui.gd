@@ -1,20 +1,14 @@
 extends Control
 
-####
-# UI
-
 onready var score = $CanvasLayer/MarginContainer/score
 onready var gameover = $CanvasLayer/MarginContainer/gameover
 onready var timer = $CanvasLayer/MarginContainer/timer
 
-################
-# Public methods
-
-func update_score(player1, player2):
+func update_score(player1: int, player2: int) -> void:
     score.text = str(player1) + " - " + str(player2)
 
-func update_time(time):
-    var minutes = time / 60
+func update_time(time: int) -> void:
+    var minutes = int(time / 60.0)
     var seconds = time % 60
 
     if minutes < 10:
@@ -25,5 +19,5 @@ func update_time(time):
 
     timer.text = str(minutes) + ":" + str(seconds)
 
-func show_game_over(winner):
+func show_game_over(winner: String) -> void:
     gameover.text = winner

@@ -3,27 +3,13 @@
 [ext_resource path="res://objects/board/goal.gd" type="Script" id=1]
 
 [sub_resource type="SegmentShape2D" id=1]
-
-custom_solver_bias = 0.0
 a = Vector2( -25, 0 )
 b = Vector2( 63.65, 0.147617 )
 
-[node name="goal" type="StaticBody2D" groups=[
-"goal",
-]]
-
-input_pickable = false
+[node name="goal" type="StaticBody2D" groups=["goal"]]
 collision_layer = 16
 collision_mask = 12
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision" ]
 
-[node name="shape" type="CollisionShape2D" parent="." index="0"]
-
+[node name="shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-
-

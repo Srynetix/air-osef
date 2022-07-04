@@ -1,0 +1,75 @@
+name: Build game
+
+on:
+  workflow_call:
+    inputs:
+      platform:
+        required: true
+        type: string
+      name:
+        required: true
+        type: string
+      output_name:
+        required: true
+        type: string
+      debug:
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    name: Build ${{ inputs.name }} for platform ${{ inputs.platform }}
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:3.4.4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+          submodules: recursive
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Setup templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/3.4.4.stable ~/.local/share/godot/templates/3.4.4.stable
+          sed 's|export/android/android_sdk_path = ".*"|export/android/android_sdk_path = "'/usr/lib/android-sdk'"|g' -i /root/.config/godot/editor_settings-3.tres
+          mkdir -v -p ~/.config/godot
+          cp -v /root/.config/godot/editor_settings-3.tres ~/.config/godot/
+      - name: Build game (release)
+        if: ${{ inputs.debug == false }}
+        run: |
+          mkdir -v -p "build/${{ inputs.platform }}"
+          godot -v --export "${{ inputs.platform }}" "./build/${{ inputs.output_name }}"
+      - name: Build game (debug)
+        if: ${{ inputs.debug == true }}
+        run: |
+          mkdir -v -p "build/${{ inputs.platform }}"
+          godot -v --export-debug "${{ inputs.platform }}" "./build/${{ inputs.output_name }}"
+      - if: ${{ inputs.platform == 'HTML5' }}
+        name: Install rsync 📚
+        run: |
+          apt-get update && apt-get install -y rsync
+      - if: ${{ inputs.platform == 'HTML5' && steps.extract_branch.outputs.branch != 'main' }}
+        name: Deploy to GitHub Pages (non-main) 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: build
+          target-folder: ${{ steps.extract_branch.outputs.branch }}
+      - if: ${{ inputs.platform == 'HTML5' && steps.extract_branch.outputs.branch == 'main' }}
+        name: Deploy to GitHub Pages (main) 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: build
+      - if: ${{ inputs.platform != 'HTML5' }}
+        name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ inputs.name }}-${{ steps.extract_branch.outputs.branch }}-${{ inputs.platform }}
+          path: build

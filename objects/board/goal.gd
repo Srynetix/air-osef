@@ -1,14 +1,9 @@
 extends StaticBody2D
+class_name Goal
 
-######
-# Goal
+signal score()
 
-signal score
+var player_owner: Paddle = null
 
-var player_owner = null
-
-################
-# Public methods
-
-func goal():
+func goal() -> void:
     emit_signal("score")

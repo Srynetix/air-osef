@@ -1,20 +1,11 @@
 extends RigidBody2D
 
-######
-# Puck
+var last_player_hit: Paddle = null
 
-var last_player_hit = null
-
-###################
-# Lifecycle methods
-
-func _ready():
+func _ready() -> void:
     connect("body_entered", self, "_on_body_entered")
     
-#################
-# Event callbacks
-
-func _on_body_entered(body):
+func _on_body_entered(body: PhysicsBody2D) -> void:
     if body.is_in_group("goal"):
         body.goal()
 
