@@ -1,55 +1,47 @@
 extends KinematicBody2D
+class_name Paddle
 
-########
-# Paddle
+const RUSH_SPEED_COEFF := 3.0
+const MOVE_SPEED := 100.0
+const THROW_SPEED := 150.0
+const SLOW_SPEED_COEFF := 0.5
 
-var RUSH_SPEED_COEFF = 3.0
-var MOVE_SPEED = 100.0
-var THROW_SPEED = 150.0
-var SLOW_SPEED_COEFF = 0.5
+var _current_status := "none"
+var _current_direction := Vector2()
+var _current_move_speed := MOVE_SPEED
 
-var current_status = "none"
-var current_direction = Vector2()
-var current_move_speed = MOVE_SPEED
+onready var _status_timer: Timer = $status_timer
+onready var _sprite: Sprite = $sprite
 
-###################
-# Lifecycle methods
+func _ready() -> void:
+    _status_timer.connect("timeout", self, "_on_status_timer_timeout")
 
-func _ready():
-    $status_timer.connect("timeout", self, "_on_status_timer_timeout")
-
-func _physics_process(delta):
+func _physics_process(_delta: float) -> void:
     _handle_movement()
     _apply_movement()
     _handle_collisions()
     
-################
-# Public methods
-
-func set_status(status):
-    if current_status == "none":
+func set_status(status: String) -> void:
+    if _current_status == "none":
         if status == "slow":
-            $sprite.modulate = Color(0.5, 0.5, 0, 1)
-            $status_timer.wait_time = 3
-            $status_timer.start()
+            _sprite.modulate = Color(0.5, 0.5, 0, 1)
+            _status_timer.wait_time = 3
+            _status_timer.start()
 
-        current_status = status
+        _current_status = status
 
-func reset_status():
-    $sprite.modulate = Color(1, 1, 1, 1)
-    current_status = "none"
+func _reset_status() -> void:
+    _sprite.modulate = Color(1, 1, 1, 1)
+    _current_status = "none"
     
-#################
-# Private methods
-
-func _apply_movement():
-    var speed = current_direction * current_move_speed
-    if current_status == "slow":
+func _apply_movement() -> void:
+    var speed = _current_direction * _current_move_speed
+    if _current_status == "slow":
         speed *= SLOW_SPEED_COEFF
 
     move_and_slide(speed)
 
-func _handle_collisions():
+func _handle_collisions() -> void:
     for idx in range(get_slide_count()):
         var collision = get_slide_collision(idx)
         var collider = collision.collider
@@ -57,11 +49,8 @@ func _handle_collisions():
             collider.last_player_hit = self
             collider.apply_impulse(Vector2(), collision.normal * -THROW_SPEED)
             
-func _handle_movement():
+func _handle_movement() -> void:
     pass
     
-#################
-# Event callbacks
-
-func _on_status_timer_timeout():
-    reset_status()
+func _on_status_timer_timeout() -> void:
+    _reset_status()

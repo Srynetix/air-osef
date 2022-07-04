@@ -34,4 +34,3 @@ wait_time = 10.0
 wait_time = 3.0
 
 [node name="ui" parent="." instance=ExtResource( 5 )]
-

@@ -1,14 +1,8 @@
 extends "res://objects/paddle/paddle.gd"
 
-###########
-# AI Paddle
+const AI_MOVE_SPEED := MOVE_SPEED * 3
 
-var AI_MOVE_SPEED = MOVE_SPEED * 3
-
-#################
-# Private methods
-
-func _handle_movement():
+func _handle_movement() -> void:
     # Get pucks
     var min_distance = 99999
     var min_puck = null
@@ -23,5 +17,5 @@ func _handle_movement():
             min_puck = puck
 
     if min_puck:
-        current_direction = (min_puck.position - position).normalized()
-        current_move_speed = AI_MOVE_SPEED
+        _current_direction = (min_puck.position - position).normalized()
+        _current_move_speed = AI_MOVE_SPEED
