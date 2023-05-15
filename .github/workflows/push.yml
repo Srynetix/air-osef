@@ -7,15 +7,11 @@ on:
 
 jobs:
   build-web:
-    uses: ./.github/workflows/build-game.yml
+    permissions:
+      contents: write
+
+    uses: Srynetix/godot-github-workflows/.github/workflows/build-game-4.0.2.yml@main
     with:
-      platform: HTML5
+      platform: Web
       name: air-osef
       output_name: index.html
-  build-android-debug:
-    uses: ./.github/workflows/build-game.yml
-    with:
-      platform: Android
-      name: air-osef
-      output_name: AirOsef.apk
-      debug: true
