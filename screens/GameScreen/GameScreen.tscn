@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8pfp2b2rljl3"]
+
+[ext_resource type="Script" path="res://screens/GameScreen/GameScreen.gd" id="1_5yoc8"]
+[ext_resource type="PackedScene" uid="uid://6tl7mkhgheav" path="res://objects/Background/Background.tscn" id="2_p5x4m"]
+[ext_resource type="FontFile" uid="uid://b3w673kt7hxqg" path="res://thirdparty/fonts/VTF MisterPixel/Mister Pixel Regular.otf" id="3_fy411"]
+[ext_resource type="PackedScene" uid="uid://sd6ntd2fvmoq" path="res://objects/Paddle/Paddle.tscn" id="4_dna1q"]
+[ext_resource type="Script" path="res://addons/sxgd/nodes/fx/screen-effects/SxFxShockwave/SxFxShockwave.gd" id="5_qdjj0"]
+[ext_resource type="AudioStream" uid="uid://crg5q437gsyat" path="res://screens/GameScreen/Goal.wav" id="6_mdfij"]
+
+[node name="GameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5yoc8")
+
+[node name="Background" parent="." instance=ExtResource("2_p5x4m")]
+z_index = -1
+metadata/_edit_lock_ = true
+
+[node name="ScoreP1" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -125.5
+offset_right = 19.0
+offset_bottom = -73.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_fy411")
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreP2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = 77.5
+offset_right = 19.0
+offset_bottom = 129.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_fy411")
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Powerups" type="Node2D" parent="."]
+
+[node name="Pucks" type="Node2D" parent="."]
+
+[node name="Paddles" type="Node2D" parent="."]
+position = Vector2(8, 0)
+
+[node name="LeftPaddle" parent="Paddles" instance=ExtResource("4_dna1q")]
+unique_name_in_owner = true
+position = Vector2(98, 355)
+can_sleep = false
+paddle_input_type = 1
+
+[node name="RightPaddle" parent="Paddles" instance=ExtResource("4_dna1q")]
+unique_name_in_owner = true
+position = Vector2(1159, 366)
+can_sleep = false
+paddle_input_type = 1
+
+[node name="Shockwave" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("5_qdjj0")
+metadata/_edit_lock_ = true
+
+[node name="GoalSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_mdfij")

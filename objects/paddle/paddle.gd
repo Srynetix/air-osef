@@ -1,56 +1,87 @@
-extends KinematicBody2D
+extends RigidBody2D
 class_name Paddle
 
-const RUSH_SPEED_COEFF := 3.0
-const MOVE_SPEED := 100.0
-const THROW_SPEED := 150.0
-const SLOW_SPEED_COEFF := 0.5
+enum PaddleInputType {
+    Player,
+    Ai
+}
 
-var _current_status := "none"
-var _current_direction := Vector2()
-var _current_move_speed := MOVE_SPEED
+const base_max_velocity := 1500.0
 
-onready var _status_timer: Timer = $status_timer
-onready var _sprite: Sprite = $sprite
+@export var paddle_input_type := PaddleInputType.Player : set = _set_paddle_input_type
+@onready var _shield_animation_player := $Shield/AnimationPlayer as AnimationPlayer
+@onready var _shield_sfx := $Shield/ShieldSFX as AudioStreamPlayer2D
+@onready var sprite := $Sprite as Sprite2D
+
+var _max_velocity := base_max_velocity
+var _paddle_input: PaddleInput
+var _shield_cooldown: Timer
+var _powerup_processor: PowerupProcessor
 
 func _ready() -> void:
-    _status_timer.connect("timeout", self, "_on_status_timer_timeout")
+    _set_paddle_input_type(paddle_input_type)
 
-func _physics_process(_delta: float) -> void:
-    _handle_movement()
-    _apply_movement()
-    _handle_collisions()
-    
-func set_status(status: String) -> void:
-    if _current_status == "none":
-        if status == "slow":
-            _sprite.modulate = Color(0.5, 0.5, 0, 1)
-            _status_timer.wait_time = 3
-            _status_timer.start()
+    _powerup_processor = PowerupProcessor.new()
 
-        _current_status = status
+    _shield_cooldown = Timer.new()
+    _shield_cooldown.one_shot = true
+    _shield_cooldown.wait_time = 1
+    _shield_cooldown.autostart = false
+    add_child(_shield_cooldown)
 
-func _reset_status() -> void:
-    _sprite.modulate = Color(1, 1, 1, 1)
-    _current_status = "none"
-    
-func _apply_movement() -> void:
-    var speed = _current_direction * _current_move_speed
-    if _current_status == "slow":
-        speed *= SLOW_SPEED_COEFF
+func _set_paddle_input_type(input_type: PaddleInputType) -> void:
+    if !is_inside_tree():
+        paddle_input_type = input_type
+        return
 
-    move_and_slide(speed)
+    if _paddle_input:
+        _paddle_input.on_exit()
 
-func _handle_collisions() -> void:
-    for idx in range(get_slide_count()):
-        var collision = get_slide_collision(idx)
-        var collider = collision.collider
-        if collider.is_in_group("puck"):
-            collider.last_player_hit = self
-            collider.apply_impulse(Vector2(), collision.normal * -THROW_SPEED)
-            
-func _handle_movement() -> void:
-    pass
-    
-func _on_status_timer_timeout() -> void:
-    _reset_status()
+    paddle_input_type = input_type
+    match paddle_input_type:
+        PaddleInputType.Player:
+            _paddle_input = PlayerPaddleInput.new()
+        PaddleInputType.Ai:
+            _paddle_input = AiPaddleInput.new()
+
+    _paddle_input.paddle = self
+    _paddle_input.on_ready()
+
+func _exit_tree():
+    _paddle_input.on_exit()
+
+func _physics_process(delta: float) -> void:
+    _powerup_processor.process(delta)
+
+    if _paddle_input.use_shield():
+        _activate_shield()
+
+func _input(event: InputEvent) -> void:
+    _paddle_input.on_input(event)
+
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+    var game_size := get_viewport_rect().size
+    var input_position := _paddle_input.get_movement()
+    if input_position != Vector2.ZERO && Rect2(Vector2.ZERO, game_size).has_point(input_position):
+        state.linear_velocity = (input_position - position) * 8.0
+
+    state.linear_velocity = state.linear_velocity.limit_length(_max_velocity)
+
+func _activate_shield() -> void:
+    if _shield_cooldown.is_stopped():
+        _shield_cooldown.start()
+
+        var pucks := get_tree().get_nodes_in_group("puck")
+        for node in pucks:
+            var puck = node as Puck
+            if puck.position.distance_to(position) < 256:
+                puck.shield_push(self, (puck.position - position).normalized() * 500.0)
+
+        _shield_sfx.play()
+        _shield_animation_player.play("grow")
+
+func add_powerup(powerup: PowerupEffect) -> void:
+    if powerup is SlowPowerupEffect:
+        powerup.paddle = self
+
+    _powerup_processor.add_powerup(powerup)

@@ -1,3 +1,2 @@
-/.import
-*.import
-*.apk
+# Godot 4+ specific ignores
+.godot/
