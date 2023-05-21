@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - main
+      - new
 
 jobs:
   build-web:
     permissions:
       contents: write
 
-    uses: Srynetix/godot-github-workflows/.github/workflows/build-game-4.0.2.yml@main
+    uses: Srynetix/godot-github-workflows/.github/workflows/build-game-4.0.3.yml@main
     with:
       platform: Web
       name: air-osef

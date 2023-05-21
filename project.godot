@@ -17,10 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameDebugTools="*res://autoloads/GameDebugTools.gd"
 GameData="*res://autoloads/GameData.gd"
-GameSceneTransitioner="*res://autoloads/GameSceneTransitioner.gd"
+GameDebugTools="*res://autoloads/GameDebugTools.gd"
 GameLoadCache="*res://autoloads/GameLoadCache.gd"
+GameSceneTransitioner="*res://autoloads/GameSceneTransitioner.gd"
 
 [display]
 
@@ -34,7 +34,7 @@ enabled=PackedStringArray("res://addons/sxgd/plugin.cfg")
 
 [engine]
 
-version="4.0.2"
+version="4.0.3"
 
 [input_devices]
 
