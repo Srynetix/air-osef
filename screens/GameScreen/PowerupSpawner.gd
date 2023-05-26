@@ -26,10 +26,10 @@ func _spawn_random_powerup() -> void:
     )
 
     var powerup_type = PowerupEffectType.Multiball
-    match randi_range(0, 1):
-        0:
-            powerup_type = PowerupEffectType.Multiball
-        1:
-            powerup_type = PowerupEffectType.Slow
+    var rand_num = randi_range(0, 4)
+    if rand_num < 3:
+        powerup_type = PowerupEffectType.Multiball
+    else:
+        powerup_type = PowerupEffectType.Slow
 
     emit_signal(spawn_requested.get_name(), powerup_type, random_position)

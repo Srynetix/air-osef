@@ -11,16 +11,17 @@ config_version=5
 [application]
 
 config/name="Air Osef"
-run/main_scene="res://screens/TitleScreen/TitleScreen.tscn"
+run/main_scene="res://screens/BootScreen/BootScreen.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameData="*res://autoloads/GameData.gd"
-GameDebugTools="*res://autoloads/GameDebugTools.gd"
 GameLoadCache="*res://autoloads/GameLoadCache.gd"
+GameData="*res://autoloads/GameData.gd"
 GameSceneTransitioner="*res://autoloads/GameSceneTransitioner.gd"
+GameCVars="*res://autoloads/GameCVars.gd"
+GameDebugTools="*res://autoloads/GameDebugTools.gd"
 
 [display]
 

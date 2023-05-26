@@ -9,7 +9,6 @@ signal effect_removed(effect: PowerupEffect)
 
 var max_velocity := 1500.0
 var game_limit_offset := 1000.0
-var in_goal := false
 
 var _last_hitter: Paddle
 var _powerup_processor: PowerupProcessor
@@ -31,15 +30,6 @@ func _physics_process(delta: float) -> void:
     _powerup_processor.process(delta)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-    var game_size = get_viewport_rect().size
-    
-    if !in_goal && (position.x < -game_limit_offset || position.x > game_size.x + game_limit_offset || position.y < -game_limit_offset || position.y > game_size.y + game_limit_offset):
-        var state_transform = state.transform
-        state_transform.origin.x = game_size.x / 2
-        state_transform.origin.y = game_size.y / 2
-        state.transform = state_transform
-        state.linear_velocity = Vector2.ZERO
-
     state.linear_velocity = state.linear_velocity.limit_length(max_velocity)
 
 func shield_push(source: Paddle, amount: Vector2) -> void:
