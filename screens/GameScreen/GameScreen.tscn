@@ -244,7 +244,7 @@ theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 32
 bbcode_enabled = true
 text = "[center]Drag your paddle using your [wave freq=10 amp=30]mouse[/wave] or your [wave freq=10 amp=30]finger[/wave].
-[wave freq=10 amp=30]Right-click[/wave] or use [wave freq=10 amp=30]2 fingers[/wave] to activate your [b]force field[/b].[/center]"
+[wave freq=10 amp=30]Double tap[/wave] to activate your [b]force field[/b].[/center]"
 fit_content = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HowToPlay"]
