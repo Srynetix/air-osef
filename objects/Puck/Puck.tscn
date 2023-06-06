@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dsrv8onl7d2kv"]
+
+[ext_resource type="Script" path="res://objects/Puck/Puck.gd" id="1_r5l24"]
+[ext_resource type="Texture2D" uid="uid://b2n4dokdgwv2o" path="res://objects/Puck/Puck.png" id="1_rjtne"]
+[ext_resource type="Script" path="res://objects/Puck/Trail.gd" id="4_pjstr"]
+[ext_resource type="AudioStream" uid="uid://utc63nnhfwgm" path="res://objects/Puck/PuckHit.wav" id="4_ptf7m"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s6dc0"]
+friction = 0.75
+bounce = 0.85
+
+[sub_resource type="Curve" id="Curve_tt5k1"]
+_data = [Vector2(0, 0.516949), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_sbics"]
+offsets = PackedFloat32Array(0, 0.527607, 0.807947, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.101961, 0.788235, 0.886275, 1, 0.101961, 0.788235, 0.886275, 1, 0.101961, 0.788235, 0.886275, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s7ryi"]
+radius = 32.0
+
+[node name="Puck" type="RigidBody2D" groups=["puck"]]
+collision_layer = 2
+collision_mask = 3
+mass = 0.15
+physics_material_override = SubResource("PhysicsMaterial_s6dc0")
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_r5l24")
+
+[node name="GameTrail" type="Line2D" parent="."]
+z_index = -1
+width = 40.0
+width_curve = SubResource("Curve_tt5k1")
+gradient = SubResource("Gradient_sbics")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("4_pjstr")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_rjtne")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s7ryi")
+metadata/_edit_lock_ = true
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ptf7m")

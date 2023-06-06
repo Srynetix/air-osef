@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dj4kjqc67mq8j"]
+
+[ext_resource type="Script" path="res://objects/Powerup/PowerupItem.gd" id="1_kxk4x"]
+[ext_resource type="Texture2D" uid="uid://chkhg0u6pnpm3" path="res://objects/Powerup/PowerupEffect/MultiballPowerupEffect.png" id="2_xrdvf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y0886"]
+radius = 25.0
+
+[sub_resource type="Gradient" id="Gradient_y85xg"]
+offsets = PackedFloat32Array(0, 0.437086, 0.887417, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="PowerupItem" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_kxk4x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_y0886")
+metadata/_edit_lock_ = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_xrdvf")
+metadata/_edit_lock_ = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 10)
+amount = 32
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(25, 1)
+gravity = Vector2(0, 50)
+angular_velocity_min = 100.0
+angular_velocity_max = 100.0
+angle_max = 360.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_y85xg")

@@ -1,0 +1,254 @@
+[gd_scene load_steps=13 format=3 uid="uid://c8pfp2b2rljl3"]
+
+[ext_resource type="Script" path="res://screens/GameScreen/GameScreen.gd" id="1_5yoc8"]
+[ext_resource type="PackedScene" uid="uid://6tl7mkhgheav" path="res://objects/Background/Background.tscn" id="2_p5x4m"]
+[ext_resource type="FontFile" uid="uid://b3w673kt7hxqg" path="res://thirdparty/fonts/VTF MisterPixel/Mister Pixel Regular.otf" id="3_fy411"]
+[ext_resource type="PackedScene" uid="uid://sd6ntd2fvmoq" path="res://objects/Paddle/Paddle.tscn" id="4_dna1q"]
+[ext_resource type="Script" path="res://addons/sxgd/nodes/fx/screen-effects/SxFxShockwave/SxFxShockwave.gd" id="5_qdjj0"]
+[ext_resource type="AudioStream" uid="uid://crg5q437gsyat" path="res://screens/GameScreen/Goal.wav" id="6_mdfij"]
+[ext_resource type="Script" path="res://addons/sxgd/nodes/fx/screen-effects/SxFxVignette/SxFxVignette.gd" id="7_240uh"]
+[ext_resource type="Script" path="res://addons/sxgd/nodes/fx/screen-effects/SxFxBetterBlur/SxFxBetterBlur.gd" id="7_e6f3d"]
+
+[sub_resource type="FontVariation" id="FontVariation_07g8d"]
+base_font = ExtResource("3_fy411")
+variation_embolden = 0.8
+
+[sub_resource type="Animation" id="Animation_pjj6u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Instructions:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x0ro2"]
+resource_name = "fade"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Instructions:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m142g"]
+_data = {
+"RESET": SubResource("Animation_pjj6u"),
+"fade": SubResource("Animation_x0ro2")
+}
+
+[node name="GameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5yoc8")
+
+[node name="Background" parent="." instance=ExtResource("2_p5x4m")]
+z_index = -1
+metadata/_edit_lock_ = true
+
+[node name="ScoreP1" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -125.5
+offset_right = 19.0
+offset_bottom = -73.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_fy411")
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreP2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = 77.5
+offset_right = 19.0
+offset_bottom = 129.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_fy411")
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Powerups" type="Node2D" parent="."]
+
+[node name="Pucks" type="Node2D" parent="."]
+
+[node name="Paddles" type="Node2D" parent="."]
+position = Vector2(8, 0)
+
+[node name="LeftPaddle" parent="Paddles" instance=ExtResource("4_dna1q")]
+unique_name_in_owner = true
+position = Vector2(98, 355)
+can_sleep = false
+paddle_input_type = 1
+
+[node name="RightPaddle" parent="Paddles" instance=ExtResource("4_dna1q")]
+unique_name_in_owner = true
+position = Vector2(1159, 366)
+can_sleep = false
+paddle_input_type = 1
+
+[node name="Shockwave" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("5_qdjj0")
+metadata/_edit_lock_ = true
+
+[node name="GoalSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_mdfij")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="SxFxVignette" type="Control" parent="GameOver"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_240uh")
+vignette_ratio = 0.9
+
+[node name="SxFxBetterBlur" type="Control" parent="GameOver"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_e6f3d")
+strength = 2.0
+
+[node name="Label" type="Label" parent="GameOver"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("3_fy411")
+theme_override_font_sizes/font_size = 96
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverLabel" type="RichTextLabel" parent="GameOver"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(1280, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -130.0
+offset_right = 640.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/default_color = Color(0.6, 0.317647, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("3_fy411")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "
+
+
+[center][wave freq=10 amp=30]Player {0} won![/wave][/center]"
+fit_content = true
+
+[node name="HowToPlay" type="CanvasLayer" parent="."]
+
+[node name="Instructions" type="RichTextLabel" parent="HowToPlay"]
+clip_contents = false
+custom_minimum_size = Vector2(1280, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -23.0
+offset_right = 0.5
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 8
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("3_fy411")
+theme_override_fonts/bold_font = SubResource("FontVariation_07g8d")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[center]Drag your paddle using your [wave freq=10 amp=30]mouse[/wave] or your [wave freq=10 amp=30]finger[/wave].
+[wave freq=10 amp=30]Double tap[/wave] to activate your [b]force field[/b].[/center]"
+fit_content = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HowToPlay"]
+autoplay = "fade"
+libraries = {
+"": SubResource("AnimationLibrary_m142g")
+}

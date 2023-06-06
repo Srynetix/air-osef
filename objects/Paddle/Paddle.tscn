@@ -1,0 +1,106 @@
+[gd_scene load_steps=11 format=3 uid="uid://sd6ntd2fvmoq"]
+
+[ext_resource type="Texture2D" uid="uid://cswgbihhn4xva" path="res://objects/Paddle/Paddle.png" id="1_cwx54"]
+[ext_resource type="Script" path="res://objects/Paddle/Paddle.gd" id="2_moc21"]
+[ext_resource type="Texture2D" uid="uid://gberyo2spcm2" path="res://objects/Paddle/Shield.png" id="3_fcbnb"]
+[ext_resource type="AudioStream" uid="uid://cna80mcdm2ot" path="res://objects/Paddle/Shield.wav" id="4_o7xpd"]
+[ext_resource type="Script" path="res://addons/sxgd/nodes/input/SxDoubleTap.gd" id="5_emcwo"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qkx4b"]
+bounce = 0.85
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wamb3"]
+radius = 64.0
+
+[sub_resource type="Animation" id="Animation_85f5r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i11jx"]
+resource_name = "grow"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(4, 4), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.1, 0.125),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_306rl"]
+_data = {
+"RESET": SubResource("Animation_85f5r"),
+"grow": SubResource("Animation_i11jx")
+}
+
+[node name="Paddle" type="RigidBody2D"]
+collision_mask = 15
+mass = 0.25
+physics_material_override = SubResource("PhysicsMaterial_qkx4b")
+gravity_scale = 0.0
+script = ExtResource("2_moc21")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_cwx54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wamb3")
+
+[node name="Shield" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Shield"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("3_fcbnb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Shield"]
+libraries = {
+"": SubResource("AnimationLibrary_306rl")
+}
+
+[node name="ShieldSFX" type="AudioStreamPlayer2D" parent="Shield"]
+stream = ExtResource("4_o7xpd")
+
+[node name="SxDoubleTap" type="Node" parent="."]
+script = ExtResource("5_emcwo")

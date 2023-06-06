@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://eq11en5mf8pb"]
+
+[ext_resource type="Script" path="res://screens/TitleScreen/TitleScreen.gd" id="1_gy5nc"]
+[ext_resource type="PackedScene" uid="uid://6tl7mkhgheav" path="res://objects/Background/Background.tscn" id="1_nwbcp"]
+[ext_resource type="FontFile" uid="uid://b3w673kt7hxqg" path="res://thirdparty/fonts/VTF MisterPixel/Mister Pixel Regular.otf" id="4_kiicy"]
+
+[sub_resource type="Gradient" id="Gradient_l5h3b"]
+offsets = PackedFloat32Array(0, 0.148387, 0.483871, 0.8, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.052915, 0.052915, 0.052915, 0.413333, 0.0901961, 0.0901961, 0.0901961, 0, 0.0484804, 0.0484804, 0.0484804, 0.4625, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k0a61"]
+gradient = SubResource("Gradient_l5h3b")
+fill_from = Vector2(0.522936, 0)
+fill_to = Vector2(0.53211, 1)
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gy5nc")
+
+[node name="Background" parent="." instance=ExtResource("1_nwbcp")]
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_k0a61")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("4_kiicy")
+theme_override_font_sizes/font_size = 96
+text = "Air Osef"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/separation = 16
+
+[node name="PlayerVsAi" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_kiicy")
+theme_override_font_sizes/font_size = 34
+text = "Player vs. AI"
+
+[node name="PlayerVsPlayer" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_kiicy")
+theme_override_font_sizes/font_size = 34
+text = "Player vs. Player"
+
+[node name="AiVsAi" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_kiicy")
+theme_override_font_sizes/font_size = 34
+text = "AI vs. AI"
