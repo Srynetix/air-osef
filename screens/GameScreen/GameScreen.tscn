@@ -154,7 +154,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("7_240uh")
-vignette_size = 1.0
 vignette_ratio = 0.9
 
 [node name="SxFxBetterBlur" type="Control" parent="GameOver"]
@@ -166,7 +165,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("7_e6f3d")
-strength = 1.0
+strength = 2.0
 
 [node name="Label" type="Label" parent="GameOver"]
 anchors_preset = 8

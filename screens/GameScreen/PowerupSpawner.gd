@@ -3,7 +3,7 @@ class_name PowerupSpawner
 
 const PowerupEffectType = PowerupFactory.PowerupEffectType
 
-const POWERUP_SPAWN_DELAY := 5.0
+const POWERUP_SPAWN_DELAY := 10.0
 
 signal spawn_requested(powerup_type: PowerupEffectType, powerup_position: Vector2)
 

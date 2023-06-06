@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://sd6ntd2fvmoq"]
+[gd_scene load_steps=11 format=3 uid="uid://sd6ntd2fvmoq"]
 
 [ext_resource type="Texture2D" uid="uid://cswgbihhn4xva" path="res://objects/Paddle/Paddle.png" id="1_cwx54"]
 [ext_resource type="Script" path="res://objects/Paddle/Paddle.gd" id="2_moc21"]
 [ext_resource type="Texture2D" uid="uid://gberyo2spcm2" path="res://objects/Paddle/Shield.png" id="3_fcbnb"]
 [ext_resource type="AudioStream" uid="uid://cna80mcdm2ot" path="res://objects/Paddle/Shield.wav" id="4_o7xpd"]
+[ext_resource type="Script" path="res://addons/sxgd/nodes/input/SxDoubleTap.gd" id="5_emcwo"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qkx4b"]
 bounce = 0.85
@@ -100,3 +101,6 @@ libraries = {
 
 [node name="ShieldSFX" type="AudioStreamPlayer2D" parent="Shield"]
 stream = ExtResource("4_o7xpd")
+
+[node name="SxDoubleTap" type="Node" parent="."]
+script = ExtResource("5_emcwo")

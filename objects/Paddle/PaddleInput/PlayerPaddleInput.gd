@@ -10,6 +10,8 @@ func on_ready() -> void:
     var texture_size = paddle.sprite.texture.get_size()
     _paddle_radius = texture_size.x / 2.0
 
+    paddle._double_tap.doubletap.connect(_on_doubletap)
+
 func on_input(event: InputEvent) -> void:
     if event is InputEventScreenTouch:
         if event.pressed && _touch_idx == -1:
@@ -26,9 +28,8 @@ func on_input(event: InputEvent) -> void:
         if event.index == _touch_idx:
             _input_position = event.position
 
-    if event is InputEventMouseButton:
-        if event.pressed && event.button_index == MOUSE_BUTTON_RIGHT:
-            _use_shield = true
+func _on_doubletap(_index: int) -> void:
+    _use_shield = true
 
 func get_movement() -> Vector2:
     return _input_position

@@ -11,6 +11,7 @@ const base_max_velocity := 1500.0
 @export var paddle_input_type := PaddleInputType.Player : set = _set_paddle_input_type
 @onready var _shield_animation_player := $Shield/AnimationPlayer as AnimationPlayer
 @onready var _shield_sfx := $Shield/ShieldSFX as AudioStreamPlayer2D
+@onready var _double_tap := $SxDoubleTap as SxDoubleTap
 @onready var sprite := $Sprite as Sprite2D
 
 var _max_velocity := base_max_velocity
@@ -52,6 +53,9 @@ func _exit_tree():
 
 func _physics_process(delta: float) -> void:
     _powerup_processor.process(delta)
+
+    var sprite_size := sprite.texture.get_size() * sprite.scale
+    _double_tap.target_rect = Rect2(sprite.global_position - sprite_size / 2, sprite_size)
 
     if _paddle_input.use_shield():
         _activate_shield()

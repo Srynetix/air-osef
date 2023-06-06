@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://eq11en5mf8pb"]
+[gd_scene load_steps=6 format=3 uid="uid://eq11en5mf8pb"]
 
 [ext_resource type="Script" path="res://screens/TitleScreen/TitleScreen.gd" id="1_gy5nc"]
 [ext_resource type="PackedScene" uid="uid://6tl7mkhgheav" path="res://objects/Background/Background.tscn" id="1_nwbcp"]
-[ext_resource type="Script" path="res://addons/sxgd/nodes/fx/screen-effects/SxFxBetterBlur/SxFxBetterBlur.gd" id="2_65dr6"]
 [ext_resource type="FontFile" uid="uid://b3w673kt7hxqg" path="res://thirdparty/fonts/VTF MisterPixel/Mister Pixel Regular.otf" id="4_kiicy"]
 
 [sub_resource type="Gradient" id="Gradient_l5h3b"]
@@ -33,17 +32,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_k0a61")
-
-[node name="SxFxBetterBlur" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("2_65dr6")
-strength = 1.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
